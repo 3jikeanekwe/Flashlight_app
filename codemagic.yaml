@@ -1,0 +1,71 @@
+# codemagic.yaml
+
+# Codemagic CI/CD config for Flashlight App
+
+# Place this file at the ROOT of your repository
+
+workflows:
+
+android-release:
+name: Android Release Build
+max_build_duration: 60
+environment:
+flutter: stable
+android_signing:
+- flashlight_keystore           # Add your keystore in Codemagic > Code Signing
+groups:
+- google_play_credentials       # Add service account JSON in Codemagic > Environment Groups
+scripts:
+- name: Get Flutter packages
+script: flutter pub get
+- name: Run tests
+script: flutter test
+- name: Build APK
+script: |
+flutter build apk –release   
+–build-name=1.0.0   
+–build-number=$(($(google-play get-latest-build-number   
+–package-name=“com.example.flashlight_app”   
+–tracks=internal) + 1))
+- name: Build App Bundle (AAB)
+script: flutter build appbundle –release
+artifacts:
+- build/app/outputs/**/*.apk
+- build/app/outputs/**/*.aab
+- build/app/outputs/**/mapping.txt
+publishing:
+google_play:
+credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+track: internal   # internal → alpha → beta → production
+submit_as_draft: true
+
+ios-release:
+name: iOS Release Build
+max_build_duration: 60
+environment:
+flutter: stable
+ios_signing:
+distribution_type: app_store
+bundle_identifier: com.example.flashlight_app   # Change to match your bundle ID
+groups:
+- appstore_credentials
+scripts:
+- name: Get Flutter packages
+script: flutter pub get
+- name: Run tests
+script: flutter test
+- name: Build IPA
+script: |
+flutter build ipa –release   
+–build-name=1.0.0   
+–build-number=$(app-store-connect get-latest-testflight-build-number   
+“YOUR_APP_STORE_APP_ID”)
+artifacts:
+- build/ios/ipa/*.ipa
+publishing:
+app_store_connect:
+api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+submit_to_testflight: true
+submit_to_app_store: false
