@@ -7,9 +7,9 @@ import ‘package:flutter/foundation.dart’;
 class AdService {
 // Replace these with your real AdMob IDs before release
 static const String _bannerAdUnitIdAndroid = ‘ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX’;
-static const String _bannerAdUnitIdIOS     = ‘ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX’;
+static const String _bannerAdUnitIdIOS     = ‘ca-app-pub-9259989243431817/7645354285’;
 static const String _interstitialAdUnitIdAndroid = ‘ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX’;
-static const String _interstitialAdUnitIdIOS     = ‘ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX’;
+static const String _interstitialAdUnitIdIOS     = ‘ca-app-pub-9259989243431817/2876572904’;
 
 // Use test ads during development
 static String get bannerAdUnitId {
