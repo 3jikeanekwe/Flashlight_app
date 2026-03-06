@@ -30,7 +30,7 @@
     <string>This app uses the camera flash as a flashlight.</string>
     <!-- AdMob App ID â replace with your real ID -->
     <key>GADApplicationIdentifier</key>
-    <string>ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX</string>
+    <string>ca-app-pub-9259989243431817~5633288677</string>
     <key>SKAdNetworkItems</key>
     <array>
         <dict>
